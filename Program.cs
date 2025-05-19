@@ -1,5 +1,7 @@
 ﻿using PatronesDeDiseneo._2__Factory_Method;
+using PatronesDeDiseneo.FactoryMethod;
 using PatronesDeDiseneo.Strategy;
+using static System.Net.Mime.MediaTypeNames;
 
 // Patron Strategi
 
@@ -43,6 +45,29 @@ bebidaFria.Servir();
 BebidaFriaFactory bebidaDos = new JugoFactory();  
 IBebidaFria bebidaFriaDos = bebidaDos.CrearBebida();
 bebidaFriaDos.Servir();
+//Console.WriteLine("________________________ Factory ejercicio - 2");
 
+//Console.WriteLine("Seleccione metodo de pago: 1 = Paypal, 2 = MercadoPAgo");
+//int opcion = int.Parse(Console.ReadLine());
 
+//IRegionalFactory regionalFactory = opcion switch
+//{
+//    1 => new ProcesarPagoM(),
+//    2 => new ProcesarPagoP(),
+//    _ => throw new Exception("Opción inválida")
+//};
 
+//Tienda app = new Tienda(regionalFactory);
+//app.ImprimeProceso();
+Console.WriteLine("Seleccione país: 1 = México, 2 = Europa");
+int opcion = int.Parse(Console.ReadLine());
+
+IPaisFactory factoryMT = opcion switch
+{
+    1 => new MexicoFactory(),
+    2 => new EuropaFactory(),
+    _ => throw new Exception("País no soportado")
+};
+
+TiendaInternacional app = new TiendaInternacional(factoryMT);
+app.ProcesarOrden(1000);
